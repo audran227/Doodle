@@ -120,12 +120,10 @@ function update() {
 }
 
 function moveDoodler(e) {
-    document.addEventListener("keydown", function(e) {
     if (e.code == "Space" && !gameStarted && !gameOver) {
         gameStarted = true;
-        placePlatforms(); // Placer les plateformes au début
-        }
-    });
+        return; // Retourne immédiatement pour éviter d'exécuter le reste du code
+    }
     if (e.code == "ArrowRight" || e.code == "KeyD") { //move right
         velocityX = 4;
         doodler.img = doodlerRightImg;
@@ -149,6 +147,7 @@ function moveDoodler(e) {
         score = 0;
         maxScore = 0;
         gameOver = false;
+        gameStarted = false;
         placePlatforms();
     }
 }
