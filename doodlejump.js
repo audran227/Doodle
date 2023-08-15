@@ -3,6 +3,7 @@ let board;
 let boardWidth = 360;
 let boardHeight = 576;
 let context;
+let gameStarted = false;
 
 //doodler
 let doodlerWidth = 46;
@@ -68,7 +69,7 @@ window.onload = function() {
 
 function update() {
     requestAnimationFrame(update);
-    if (gameOver) {
+    if (gameOver || !gameStarted) {
         return;
     }
     context.clearRect(0, 0, board.width, board.height);
@@ -119,6 +120,12 @@ function update() {
 }
 
 function moveDoodler(e) {
+    document.addEventListener("keydown", function(e) {
+    if (e.code == "Space" && !gameStarted && !gameOver) {
+        gameStarted = true;
+        placePlatforms(); // Placer les plateformes au début
+        }
+    });
     if (e.code == "ArrowRight" || e.code == "KeyD") { //move right
         velocityX = 4;
         doodler.img = doodlerRightImg;
